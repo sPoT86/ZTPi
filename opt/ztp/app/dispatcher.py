@@ -30,6 +30,8 @@ def request_dispatcher(file_path):
     if "ZTP" in file_path:
         ztpname = file_path.split('-')[0]
         ztplog = str(ztpname + ".log")
+        while os.path.isfile(C.CACHE_DIR + ztplog) is False:
+            time.sleep(1)
         with open(os.path.join(C.CACHE_DIR, ztplog), "r") as f:
             cache = f.readline().split(';')
             serial = cache[4]
