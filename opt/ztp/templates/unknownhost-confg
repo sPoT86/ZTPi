@@ -1,0 +1,7 @@
+
+enable secret Cisco123
+
+line con 0
+ login authentication default
+
+end

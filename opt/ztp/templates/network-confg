@@ -1,0 +1,16 @@
+hostname {{ hostname }}
+ip domain name ztp.de
+
+aaa new-model
+aaa authentication login default local
+aaa authorization exec default local
+
+username {{ staging_bn }} priv 15 secret {{ staging_pw }}
+
+line vty 0 4
+ authorization exec default
+ login authentication default
+
+crypto key generate rsa general-keys modulus 2048
+
+end
