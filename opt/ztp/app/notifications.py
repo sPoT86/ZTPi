@@ -12,7 +12,7 @@ headers = {
 
 
 def notify_discord(msg):
-    url = 'https://discordapp.com/api/webhooks/764566548975190026/V1Mn2Bq9et-WsKrFuJHZ35yy-lpDBrhB3IWtE9vI2pxNSJyxXU0TVGX0uSCzSS2aMiea'
+    url = <Add WebHook URL as string>
     webhook = DiscordWebhook(url, content=json.dumps(msg))
     response = webhook.execute()
 
