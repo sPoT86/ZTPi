@@ -3,7 +3,8 @@ Zero Touch Provisioning System for Cisco IOS-XE
 
 Current Version: 2  
 Features:  
-  - DHCP Server included (isc-dhcp)  
-  - TFTP Server included (fbtftp)  
+  - DHCP Server (isc-dhcp)  
+  - TFTP Server (fbtftp)  
+  - Syslog collector (rsyslog)  
   - Python based jinja2 configuration templating  
-  - status notifications in Discord (Webhook required)  
+  - Status notification in Discord (Webhook required)  
