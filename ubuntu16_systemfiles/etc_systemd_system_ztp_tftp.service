@@ -1,0 +1,12 @@
+[Unit]
+Description=ZTP TFTP service
+After=network.target
+
+[Service]
+Type=simple
+User=ztp
+WorkingDirectory=/opt/ztp/
+ExecStart=/opt/ztp/ztp_tftp.sh
+
+[Install]
+WantedBy=multi-user.target

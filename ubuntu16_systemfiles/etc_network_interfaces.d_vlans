@@ -1,0 +1,9 @@
+# VLAN 1
+#auto ens33.1
+#iface ens33.1 inet manual
+#  vlan-raw-device ens33
+
+# VLAN 2
+#auto ens33.2
+#iface ens33.2 inet manual
+#  vlan-raw-device ens33

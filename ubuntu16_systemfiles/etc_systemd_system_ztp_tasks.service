@@ -1,0 +1,12 @@
+[Unit]
+Description=ZTP Worker
+After=network.target
+
+[Service]
+Type=simple
+User=ztp
+WorkingDirectory=/opt/ztp/
+ExecStart=/opt/ztp/ztp_tasks.sh
+
+[Install]
+WantedBy=multi-user.target
