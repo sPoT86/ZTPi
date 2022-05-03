@@ -24,7 +24,7 @@ def render_myfile(template, parameter):
             except TemplateSyntaxError:
                 return('T82')
             else:
-                return template.render(parameter)
+                return config
         except TemplateNotFound:
             return('T68')
 
