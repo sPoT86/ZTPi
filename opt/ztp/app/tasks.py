@@ -69,10 +69,28 @@ def ztp_start(host, file):
                     notify_syslog('{}: {}'.format(dtime, msg))
                     notify_discord(msg)
                     config = render_myfile(parameters[0]['association'], parameters[0])
-                    if config == 'T68':
+                    if config == 'T74':
+                        logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
+                        fh.write(logentry)
+                        msg = '{} no Rendering possible, Template folder is missing or not accessible'.format(host)
+                        notify_syslog('{}: {}'.format(dtime, msg))
+                        notify_discord(msg)
+                    elif config == 'T68':
                         logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
                         fh.write(logentry)
                         msg = '{} no Rendering possible, Template {} is missing'.format(host, parameters[0]['association'])
+                        notify_syslog('{}: {}'.format(dtime, msg))
+                        notify_discord(msg)
+                    elif config == 'T81':
+                        logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
+                        fh.write(logentry)
+                        msg = '{} no Rendering possible, Template {} includes not defined variables'.format(host, parameters[0]['association'])
+                        notify_syslog('{}: {}'.format(dtime, msg))
+                        notify_discord(msg)
+                    elif config == 'T82':
+                        logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
+                        fh.write(logentry)
+                        msg = '{} no Rendering possible, Template {} has errors in Syntax'.format(host, parameters[0]['association'])
                         notify_syslog('{}: {}'.format(dtime, msg))
                         notify_discord(msg)
                     else:
