@@ -1,0 +1,10 @@
+staging_bn: "ztp"
+staging_pw: "cisco"
+tftp_root: '/opt/ztp/tftproot'
+keystore: '/opt/ztp/keystores/keystore.csv'
+templates_dir: '/opt/ztp/templates/'
+cache_dir: '/var/log/ztp/'
+configs_dir: '/opt/ztp/configfiles/'
+log_dir: '/var/log/ztp/'
+log_filename: 'ZTPi.log'
+redis_server: 'localhost'
