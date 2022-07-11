@@ -4,7 +4,7 @@ Zero Touch Provisioning System for Cisco IOS-XE
 Current Version: 2  
 Features:  
   - Python based jinja2 configuration templating  
-  - Status notification in Discord (Webhook required)  
+  - Status notification in Discord or WebEx (Webhook required)  
   - DHCP Server (isc-dhcp)  
   - TFTP Server (fbtftp)  
   - Syslog collector (rsyslog)  
