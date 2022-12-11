@@ -1,5 +1,6 @@
 # ZTPi
-Zero Touch Provisioning System for Cisco IOS-XE  
+ZTPi is a Zero Touch Provisioning System devieloped for Cisco IOS and IOS-XE devices.
+Cisco's Autoinstall feature is used to provide every device with a initial, template-based configuration, to enable SSH access and identify the device by serial number.
 
 Current Version: 2  
 Features:  
