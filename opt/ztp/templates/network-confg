@@ -1,5 +1,5 @@
 hostname {{ hostname }}
-ip domain name ztp.de
+ip domain name {{ staging_domain }}
 
 aaa new-model
 aaa authentication login default local
