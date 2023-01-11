@@ -1,5 +1,6 @@
 staging_bn: "ztp"
 staging_pw: "cisco"
+staging_domain: "ztp.de"
 tftp_root: '/opt/ztp/tftproot'
 keystore: '/opt/ztp/keystores/keystore.csv'
 templates_dir: '/opt/ztp/templates/'
