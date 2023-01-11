@@ -1,4 +1,4 @@
-/var/log/ztp/*.log {
+/var/log/ztp/ZTP.log {
         su root root
         create 777 root root
         daily        # taeglich rotieren
