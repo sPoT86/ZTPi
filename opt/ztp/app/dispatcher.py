@@ -56,7 +56,7 @@ def request_dispatcher(file_path):
 
     if file_path == 'network-confg':
         tname = generate_tname()
-        config = render_file(file_path, hostname=tname, staging_bn=C.STAGING_BN, staging_pw=C.STAGING_PW)
+        config = render_file(file_path, hostname=tname, staging_bn=C.STAGING_BN, staging_pw=C.STAGING_PW, staging_domain=C.STAGING_DOMAIN)
         return StringResponseData(config)
 
     else:
