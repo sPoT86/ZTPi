@@ -9,9 +9,10 @@ with open("config.yaml", "r") as f:
 
 STAGING_BN = os.environ.get('ZTP_STAGING_BN') or _cfg.get('staging_bn')
 STAGING_PW = os.environ.get('ZTP_STAGING_PW') or _cfg.get('staging_pw')
+STAGING_ENASEC = os.environ.get('ZTP_STAGING_ENASEC') or _cfg.get('staging_enasec')
 STAGING_DOMAIN = os.environ.get('ZTP_STAGING_DOMAIN') or _cfg.get('staging_domain')
 TFTP_ROOT = os.environ.get('TFTP_ROOT') or _cfg.get('tftp_root')
-KEYSTORE = os.environ.get('ZTP_KEYSTORE') or _cfg.get('keystore')
+DATASTORE = os.environ.get('ZTP_DATASTORE') or _cfg.get('datastore')
 TEMPLATE_DIR = os.environ.get('ZTP_TEMPLATES') or _cfg.get('templates_dir')
 CACHE_DIR = os.environ.get('ZTP_CACHE_DIR') or _cfg.get('cache_dir')
 CONFIG_DIR = os.environ.get('ZTP_CONFIGS_DIR') or _cfg.get('configs_dir')
