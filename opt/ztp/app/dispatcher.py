@@ -37,9 +37,9 @@ def request_dispatcher(file_path):
             serial = cache[4]
             devicename = cache[5]
             if devicename == 'UNKNOWN':
-                config = render_file('unknownhost-confg')
+                config = render_file('unknownhost-confg', staging_enasec=C.STAGING_ENASEC)
                 return StringResponseData(config)
-            elif devicename == 'KFAILURE':
+            elif devicename == 'DFAILURE':
                 config = render_file('failedhost-confg')
                 return StringResponseData(config)
             elif devicename == 'TFAILURE':
@@ -51,7 +51,7 @@ def request_dispatcher(file_path):
                     return StringResponseData(config)
             else:
                 parameters = parameter_lookup(serial)
-                config = render_myfile(parameters[0]['association'], parameters[0])
+                config = render_myfile(parameters[0]['template'], parameters[0])
                 return StringResponseData(config)
 
     if file_path == 'network-confg':
