@@ -9,33 +9,34 @@ Features:
   - DHCP Server (isc-dhcp)  
   - TFTP Server (fbtftp)  
   - Syslog collector (rsyslog)  
-  - Samba server for SCP download/upload of large files (e.g. Firmware)
+  - Samba server for SCP download/upload of large files (e.g. Firmware)  
   
 
-Installation:
-1. Disable Firewall:
-sudo ufw disable
-
-2. Get packages:
-sudo apt-get update && sudo apt-get dist-upgrade
-sudo apt-get upgrade
-sudo apt install -y python-minimal
-sudo apt-get install -y --force-yes libssl-dev libffi-dev python-dev python-cffi
-sudo apt-get install software-properties-common
-sudo apt-get install isc-dhcp-server
-sudo apt-get install samba samba-common-bin
-sudo apt-get install redis-server
-sudo apt-get install redis
-sudo apt install python-pip
-sudo apt install python3-pip
-sudo pip install --upgrade pip
-sudo pip install -U setuptools
-sudo pip install fbtftp
-sudo pip install jinja2
-sudo pip install requests
-sudo pip install rq
-sudo pip install napalm
-sudo pip install ruamel.yaml
-sudo pip install discord-webhook
-sudo pip install rsyslog
-sudo pip install loguru
+Installation:  
+1. Disable Firewall:  
+sudo ufw disable  
+  
+2. Get packages:  
+sudo apt-get update && sudo apt-get dist-upgrade  
+sudo apt-get upgrade  
+sudo apt install -y python-minimal  
+sudo apt-get install -y --force-yes libssl-dev libffi-dev python-dev python-cffi  
+sudo apt-get install software-properties-common  
+sudo apt-get install isc-dhcp-server  
+sudo apt-get install samba samba-common-bin  
+sudo apt-get install redis-server  
+sudo apt-get install redis  
+sudo apt install python-pip  
+sudo apt install python3-pip  
+sudo pip install --upgrade pip  
+sudo pip install -U setuptools  
+sudo pip install fbtftp  
+sudo pip install jinja2  
+sudo pip install requests  
+sudo pip install rq  
+sudo pip install napalm  
+sudo pip install ruamel.yaml  
+sudo pip install discord-webhook  
+sudo pip install rsyslog  
+sudo pip install loguru  
+  
