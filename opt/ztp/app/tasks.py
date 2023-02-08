@@ -36,20 +36,20 @@ def ztp_start(host, file):
         parameters = parameter_lookup(facts['serial_number'])
         with open(os.path.join(C.CACHE_DIR, ztplog), "w") as fh:
             if parameters == 'K22':
-                msg = '{} no Lookup possible, Keystore is missing'.format(host)
+                msg = '{} no Lookup possible, Datastore is missing or not accessible'.format(host)
                 notify_syslog('{}: {}'.format(dtime, msg))
                 notify_im(msg)
-                logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'KFAILURE')
+                logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'DFAILURE')
                 fh.write(logentry)
             elif parameters is None:
-                msg = '{} Serial {} not assigned in Keystore'.format(host, facts['serial_number'])
+                msg = '{} Serial {} not assigned in Datastore'.format(host, facts['serial_number'])
                 notify_syslog('{}: {}'.format(dtime, msg))
                 notify_im(msg)
                 logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'UNKNOWN')
                 fh.write(logentry)
             else:
                 devicename = parameters[0]['devicename']
-                msg = '{} Serial {} assigned in Keystore -> Realname: {}'.format(host, facts['serial_number'], devicename)
+                msg = '{} Serial {} assigned in Datastore -> Devicename: {}'.format(host, facts['serial_number'], devicename)
                 notify_syslog('{}: {}'.format(dtime, msg))
                 notify_im(msg)
                 if os.path.isfile(C.CONFIG_DIR + devicename):
@@ -65,10 +65,7 @@ def ztp_start(host, file):
                         fh.write("####################" + " BACKUP-CONFIGURATION" + "\n")
                         fh.write(config)
                 else:
-                    msg = '{} no backup configuration for {} found'.format(host, devicename)
-                    notify_syslog('{}: {}'.format(dtime, msg))
-                    notify_im(msg)
-                    config = render_myfile(parameters[0]['association'], parameters[0])
+                    config = render_myfile(parameters[0]['template'], parameters[0])
                     if config == 'T74':
                         logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
                         fh.write(logentry)
@@ -78,19 +75,19 @@ def ztp_start(host, file):
                     elif config == 'T68':
                         logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
                         fh.write(logentry)
-                        msg = '{} no Rendering possible, Template {} is missing'.format(host, parameters[0]['association'])
+                        msg = '{} no Rendering possible, Template {} not found'.format(host, parameters[0]['template'])
                         notify_syslog('{}: {}'.format(dtime, msg))
                         notify_im(msg)
                     elif config == 'T81':
                         logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
                         fh.write(logentry)
-                        msg = '{} no Rendering possible, Template {} includes not defined variables'.format(host, parameters[0]['association'])
+                        msg = '{} no Rendering possible, Template {} has not defined variables'.format(host, parameters[0]['template'])
                         notify_syslog('{}: {}'.format(dtime, msg))
                         notify_im(msg)
                     elif config == 'T82':
                         logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
                         fh.write(logentry)
-                        msg = '{} no Rendering possible, Template {} has errors in Syntax'.format(host, parameters[0]['association'])
+                        msg = '{} no Rendering possible, Template {} has Syntax-Errors'.format(host, parameters[0]['template'])
                         notify_syslog('{}: {}'.format(dtime, msg))
                         notify_im(msg)
                     else:
@@ -127,11 +124,11 @@ def ztp_start(host, file):
             cache = f.readline().split(';')
             devicename = cache[5]
             if devicename == 'UNKNOWN':
-                msg = '{} Serial not assigned in Keystore, please verify and restart device manually'.format(host)
+                msg = '{} Serial not assigned in datastore, please check datastore entry and reset device manually'.format(host)
                 notify_syslog('{}: {}'.format(dtime, msg))
                 notify_im(msg)
                 return
-            elif devicename == 'KFAILURE':
+            elif devicename == 'DFAILURE':
                 msg = '{} Provisioning failed, device will restart in 5 minutes'.format(host)
                 notify_syslog('{}: {}'.format(dtime, msg))
                 notify_im(msg)
@@ -146,11 +143,11 @@ def ztp_start(host, file):
         parameters = parameter_lookup(facts['serial_number'])
         devicename = parameters[0]['devicename']
         if facts['hostname'] == devicename:
-            msg = '{} {} successfully provisioned, device will start embedded scripts in about 100s.'.format(host, facts['hostname'])
+            msg = '{} {} Successfully provisioned, device will start embedded scripts in about 100s.'.format(host, facts['hostname'])
             notify_syslog('{}: {}'.format(dtime, msg))
             notify_im(msg)
         else:
-            msg = '{} something\'s wrong with me'.format(host)
+            msg = '{} Something is wrong, the result is not as it should be.'.format(host)
             notify_syslog('{}: {}'.format(dtime, msg))
             notify_im(msg)
 
