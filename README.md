@@ -13,7 +13,8 @@ Features:
   
 Changelog:  
 v2 -> v2.1:    
- - Changed "association" to "template" and "keystore" to "datastore"    
+ - Changed "association" to "template"
+ - Changed "keystore" to "datastore"    
  - Removed notification if config-backup not existing    
     
 Installation:  
