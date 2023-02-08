@@ -5,10 +5,10 @@ import os
 def parameter_lookup (serial):
 
     config_parameters = []
-    if not os.path.isfile(C.KEYSTORE):
+    if not os.path.isfile(C.DATASTORE):
         return('K22')
     else:
-        with open(C.KEYSTORE) as fh:
+        with open(C.DATASTORE) as fh:
             csv_reader = csv.DictReader(fh, delimiter=';')
             for line in csv_reader:
                 config_parameters.append(dict(line))
@@ -23,7 +23,7 @@ def parameter_lookup (serial):
 
         for parameter in config_parameters:
             if serial in parameter['idarray']:
-                config_parameters = []
-                config_parameters.append(parameter)
-                return(config_parameters)
+                config_params = []
+                config_params.append(parameter)
+                return(config_params)
 
