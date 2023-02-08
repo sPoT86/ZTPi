@@ -12,8 +12,9 @@ Features:
   - Samba server for SCP download/upload of large files (e.g. Firmware)  
   
 Changelog:  
-v2 -> v2.1: - Changed "association" to "template" and "keystore" to "datastore"    
-            - Removed notification if config-backup not existing    
+v2 -> v2.1:    
+ - Changed "association" to "template" and "keystore" to "datastore"    
+ - Removed notification if config-backup not existing    
     
 Installation:  
 1. Disable Firewall:  
