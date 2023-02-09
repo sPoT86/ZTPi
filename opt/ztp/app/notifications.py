@@ -30,8 +30,7 @@ def notify_im(msg):
 
 
 def notify_syslog(msg):
-    print(msg)
     with open(os.path.join(C.LOG_DIR, C.LOG_FILENAME), "a+") as fh:
         fh.write("\n") 
         fh.write(msg)
-    os.chmod(C.CACHE_DIR + C.LOG_FILENAME, 0o777)
+    os.chmod(C.LOG_DIR + C.LOG_FILENAME, 0o777)
