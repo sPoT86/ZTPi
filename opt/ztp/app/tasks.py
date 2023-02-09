@@ -105,7 +105,7 @@ def ztp_start(host, file):
         notify_im(msg)
         ztpname = file.split('-')[0]
         ztplog = str(ztpname + ".log")
-        time.sleep(45)
+        time.sleep(15)
 
         dev = get_napalm_connection(host, 'ios')
 
