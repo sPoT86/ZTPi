@@ -1,6 +1,6 @@
 staging_bn: "ztp"
 staging_pw: "cisco"
-staging_ensec: "cisco"
+staging_enasec: "cisco"
 staging_domain: "ztp.de"
 tftp_root: '/opt/ztp/tftproot'
 datastore: '/opt/ztp/datastores/datastore.csv'
