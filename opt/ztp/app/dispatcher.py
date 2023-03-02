@@ -1,5 +1,4 @@
 from app.templating import render_file
-from app.templating import render_myfile
 from app.templating import generate_tname
 from app.inventory import parameter_lookup
 from fbtftp.base_handler import StringResponseData
@@ -38,26 +37,23 @@ def request_dispatcher(file_path):
             devicename = cache[5]
             if devicename == 'UNKNOWN':
                 config = render_file('unknownhost-confg', staging_enasec=C.STAGING_ENASEC)
-                return StringResponseData(config)
             elif devicename == 'DFAILURE':
                 config = render_file('failedhost-confg')
-                return StringResponseData(config)
             elif devicename == 'TFAILURE':
                 config = render_file('failedhost-confg')
-                return StringResponseData(config)
             elif os.path.isfile(C.CONFIG_DIR + devicename):
                 with open(os.path.join(C.CONFIG_DIR, devicename), "r") as fh:
                     config = fh.read()
-                    return StringResponseData(config)
             else:
-                parameters = parameter_lookup(serial)
-                config = render_myfile(parameters[0]['template'], parameters[0])
+                config = cache[6]
+            if config not in ['T68','T74','T81','T82']:
                 return StringResponseData(config)
 
     if file_path == 'network-confg':
         tname = generate_tname()
-        config = render_file(file_path, hostname=tname, staging_bn=C.STAGING_BN, staging_pw=C.STAGING_PW, staging_domain=C.STAGING_DOMAIN)
-        return StringResponseData(config)
+        config = render_file('network-confg', hostname=tname, staging_bn=C.STAGING_BN, staging_pw=C.STAGING_PW, staging_domain=C.STAGING_DOMAIN)
+        if config not in ['T68','T74','T81','T82']:
+            return StringResponseData(config)
 
     else:
         return TftpData(file_path)
