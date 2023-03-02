@@ -23,7 +23,5 @@ def parameter_lookup (serial):
 
         for parameter in config_parameters:
             if serial in parameter['idarray']:
-                config_params = []
-                config_params.append(parameter)
-                return(config_params)
+                return(parameter)
 
