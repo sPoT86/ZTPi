@@ -1,5 +1,5 @@
 from app.network import get_napalm_connection
-from app.templating import render_myfile
+from app.templating import render_file
 from app.notifications import notify_im
 from app.notifications import notify_syslog
 from app.inventory import parameter_lookup
@@ -48,7 +48,7 @@ def ztp_start(host, file):
                 logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'UNKNOWN')
                 fh.write(logentry)
             else:
-                devicename = parameters[0]['devicename']
+                devicename = parameters['devicename']
                 msg = '{} Serial {} assigned in Datastore -> Devicename: {}'.format(host, facts['serial_number'], devicename)
                 notify_syslog('{}: {}'.format(dtime, msg))
                 notify_im(msg)
@@ -61,11 +61,10 @@ def ztp_start(host, file):
                         config = f.read()
                         fh.write(logentry)
                         fh.write("\n")
-                        fh.write("\n")
-                        fh.write("####################" + " BACKUP-CONFIGURATION" + "\n")
+                        fh.write("!---------------------------------------" + " BACKUP CONFIGURATION:" + "\n")
                         fh.write(config)
                 else:
-                    config = render_myfile(parameters[0]['template'], parameters[0])
+                    config = render_file(parameters['ztp_template'], **parameters)
                     if config == 'T74':
                         logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
                         fh.write(logentry)
@@ -75,27 +74,26 @@ def ztp_start(host, file):
                     elif config == 'T68':
                         logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
                         fh.write(logentry)
-                        msg = '{} no Rendering possible, Template {} not found'.format(host, parameters[0]['template'])
+                        msg = '{} no Rendering possible, Template {} not found'.format(host, parameters['ztp_template'])
                         notify_syslog('{}: {}'.format(dtime, msg))
                         notify_im(msg)
                     elif config == 'T81':
                         logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
                         fh.write(logentry)
-                        msg = '{} no Rendering possible, Template {} has not defined variables'.format(host, parameters[0]['template'])
+                        msg = '{} no Rendering possible, Template {} has not defined variables'.format(host, parameters['ztp_template'])
                         notify_syslog('{}: {}'.format(dtime, msg))
                         notify_im(msg)
                     elif config == 'T82':
                         logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
                         fh.write(logentry)
-                        msg = '{} no Rendering possible, Template {} has Syntax-Errors'.format(host, parameters[0]['template'])
+                        msg = '{} no Rendering possible, Template {} has Syntax-Errors'.format(host, parameters['ztp_template'])
                         notify_syslog('{}: {}'.format(dtime, msg))
                         notify_im(msg)
                     else:
                         logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], devicename)
                         fh.write(logentry)
                         fh.write("\n")
-                        fh.write("\n")
-                        fh.write("####################" + " ZTP-CONFIGURATION" + "\n")
+                        fh.write("!---------------------------------------" + " ZTP CONFIGURATION:" + "\n")
                         fh.write(config)
         os.chmod(C.CACHE_DIR + ztplog, 0o777)
     elif "ZTP" in file:
@@ -140,9 +138,9 @@ def ztp_start(host, file):
 
         facts = dev.get_facts()
         parameters = parameter_lookup(facts['serial_number'])
-        devicename = parameters[0]['devicename']
+        devicename = parameters['devicename']
         if facts['hostname'] == devicename:
-            msg = '{} {} Successfully provisioned, device will start embedded scripts in about 100s.'.format(host, facts['hostname'])
+            msg = '{} {} successfully provisioned, device will start embedded scripts in about 100s.'.format(host, facts['hostname'])
             notify_syslog('{}: {}'.format(dtime, msg))
             notify_im(msg)
         else:
