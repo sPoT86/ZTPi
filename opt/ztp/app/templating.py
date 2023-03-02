@@ -4,7 +4,7 @@ import time
 import os
 
 
-def render_myfile(template, parameter):
+def render_file(template, **kwargs):
 
     if not os.path.isdir(C.TEMPLATE_DIR):
         return('T74')
@@ -18,7 +18,7 @@ def render_myfile(template, parameter):
         try:
             template = env.get_template(template)
             try:
-                config = template.render(parameter)
+                config = template.render(**kwargs)
             except UndefinedError:
                 return('T81')
             except TemplateSyntaxError:
@@ -27,18 +27,6 @@ def render_myfile(template, parameter):
                 return config
         except TemplateNotFound:
             return('T68')
-
-
-def render_file(template, **kwargs):
-
-    env = Environment(
-        loader=FileSystemLoader(C.TEMPLATE_DIR),
-        undefined=StrictUndefined,
-        trim_blocks=True
-    )
-
-    template = env.get_template(template)
-    return template.render(**kwargs)
 
 
 def generate_tname():
