@@ -45,7 +45,8 @@ def request_dispatcher(file_path):
                 with open(os.path.join(C.CONFIG_DIR, devicename), "r") as fh:
                     config = fh.read()
             else:
-                config = cache[6]
+                parameters = parameter_lookup(serial)
+                config = render_file(parameters['ztp_template'], **parameters)
             if config not in ['T68','T74','T81','T82']:
                 return StringResponseData(config)
 
