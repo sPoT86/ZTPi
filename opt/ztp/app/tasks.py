@@ -64,37 +64,44 @@ def ztp_start(host, file):
                         fh.write("!---------------------------------------" + " BACKUP CONFIGURATION:" + "\n")
                         fh.write(config)
                 else:
-                    config = render_file(parameters['ztp_template'], **parameters)
-                    if config == 'T74':
+                    if parameters.get('ztp_template') is None or parameters.get('ztp_template') == '':
                         logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
                         fh.write(logentry)
-                        msg = '{} no Rendering possible, Template folder is missing or not accessible'.format(host)
-                        notify_syslog('{}: {}'.format(dtime, msg))
-                        notify_im(msg)
-                    elif config == 'T68':
-                        logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
-                        fh.write(logentry)
-                        msg = '{} no Rendering possible, Template {} not found'.format(host, parameters['ztp_template'])
-                        notify_syslog('{}: {}'.format(dtime, msg))
-                        notify_im(msg)
-                    elif config == 'T81':
-                        logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
-                        fh.write(logentry)
-                        msg = '{} no Rendering possible, Template {} has not defined variables'.format(host, parameters['ztp_template'])
-                        notify_syslog('{}: {}'.format(dtime, msg))
-                        notify_im(msg)
-                    elif config == 'T82':
-                        logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
-                        fh.write(logentry)
-                        msg = '{} no Rendering possible, Template {} has Syntax-Errors'.format(host, parameters['ztp_template'])
+                        msg = '{} no Rendering possible, Template not provided'.format(host)
                         notify_syslog('{}: {}'.format(dtime, msg))
                         notify_im(msg)
                     else:
-                        logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], devicename)
-                        fh.write(logentry)
-                        fh.write("\n")
-                        fh.write("!---------------------------------------" + " ZTP CONFIGURATION:" + "\n")
-                        fh.write(config)
+                        config = render_file(parameters['ztp_template'], **parameters)
+                        if config == 'T74':
+                            logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
+                            fh.write(logentry)
+                            msg = '{} no Rendering possible, Template folder is missing or not accessible'.format(host)
+                            notify_syslog('{}: {}'.format(dtime, msg))
+                            notify_im(msg)
+                        elif config == 'T68':
+                            logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
+                            fh.write(logentry)
+                            msg = '{} no Rendering possible, Template {} not found'.format(host, parameters['ztp_template'])
+                            notify_syslog('{}: {}'.format(dtime, msg))
+                            notify_im(msg)
+                        elif config == 'T81':
+                            logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
+                            fh.write(logentry)
+                            msg = '{} no Rendering possible, Template {} has not defined variables'.format(host, parameters['ztp_template'])
+                            notify_syslog('{}: {}'.format(dtime, msg))
+                            notify_im(msg)
+                        elif config == 'T82':
+                            logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], 'TFAILURE')
+                            fh.write(logentry)
+                            msg = '{} no Rendering possible, Template {} has Syntax-Errors'.format(host, parameters['ztp_template'])
+                            notify_syslog('{}: {}'.format(dtime, msg))
+                            notify_im(msg)
+                        else:
+                            logentry = '{};{};{};{};{};{};'.format(dtime, host, facts['hostname'], facts['model'], facts['serial_number'], devicename)
+                            fh.write(logentry)
+                            fh.write("\n")
+                            fh.write("!---------------------------------------" + " ZTP CONFIGURATION:" + "\n")
+                            fh.write(config)
         os.chmod(C.CACHE_DIR + ztplog, 0o777)
     elif "ZTP" in file:
         dtime = datetime.datetime.now()
