@@ -52,6 +52,7 @@ sudo pip install loguru
   
 Requirements Datastore:  
 - First line is reserved for keys
+- Must not include Keys used by Jinja (Kwargs)
 - Key: devicename  
 - Key: ztp_template  
 - Key: idarray_1 (at least one)  
