@@ -45,3 +45,11 @@ sudo pip install discord-webhook
 sudo pip install rsyslog  
 sudo pip install loguru  
   
+Requirements Datastore:  
+- First line is reserved for keys
+- Key: devicename  
+- Key: ztp_template  
+- Key: idarray_1 (at least one)  
+  
+Requirements Jinja-Templates:  
+- No semicolons / ;  
