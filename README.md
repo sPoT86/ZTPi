@@ -14,7 +14,7 @@ Features:
 Changelog:  
 v2.2:    
  - Changed dispatcher.py and tasks.py to use cachefile for ZTP-confg
- - Standardized templating.py jinja rendering call  
+ - Standardized call of render_file in templating.py  
 
 v2.1:    
  - Changed "association" to "template"
