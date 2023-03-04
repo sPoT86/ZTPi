@@ -12,6 +12,9 @@ Features:
   - Samba server for SCP download/upload of large files (e.g. Firmware)  
   
 Changelog:  
+v2.2:    
+ - Changed dispatcher.py and tasks.py to use cachefile for ZTP-confg
+ - Standardized templating.py jinja rendering call   
 v2.1:    
  - Changed "association" to "template"
  - Changed "keystore" to "datastore"    
