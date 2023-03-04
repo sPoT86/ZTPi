@@ -54,4 +54,4 @@ Requirements Datastore:
   
   
 Requirements Jinja-Templates:  
-- No semicolons / ;  
+- No semicolons (;)  
