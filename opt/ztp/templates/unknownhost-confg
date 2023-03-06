@@ -1,5 +1,5 @@
 
-enable secret Cisco123
+enable secret {{ staging_enasec }}
 
 line con 0
  login authentication default
