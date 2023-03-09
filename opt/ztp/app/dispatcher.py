@@ -54,29 +54,30 @@ def request_dispatcher(file_path):
                     devicename = 'CFAILURE'
                 else:
                     devicename = cache[5]
-                if devicename == 'CFAILURE':
-                    config = render_file('failedhost-confg')
-                elif devicename == 'DFAILURE':
-                    config = render_file('failedhost-confg')
-                elif devicename == 'TFAILURE':
-                    config = render_file('failedhost-confg')
-                elif devicename == 'UNKNOWN':
-                    config = render_file('unknownhost-confg', staging_enasec=C.STAGING_ENASEC)
-                else:
+            if devicename == 'CFAILURE':
+                config = render_file('failedhost-confg')
+            elif devicename == 'DFAILURE':
+                config = render_file('failedhost-confg')
+            elif devicename == 'TFAILURE':
+                config = render_file('failedhost-confg')
+            elif devicename == 'UNKNOWN':
+                config = render_file('unknownhost-confg', staging_enasec=C.STAGING_ENASEC)
+            else:
+                with open(os.path.join(C.CACHE_DIR, cachefile), "r") as f:
                     cache = f.read().split(';')
                     i = 1
                     while i != timeout and len(cache) < 7:
                         time.sleep(1)
                         cache = f.read().split(';')
                         i += 1
-                    if i == timeout:
-                        config = render_file('failedhost-confg')
-                    else:
-                        config = cache[6]
+                if i == timeout:
+                    config = render_file('failedhost-confg')
+                else:
+                    config = cache[6]
         if config not in ['','T68','T74','T81','T82']:
             return StringResponseData(config)
 
     else:
-        if os.path.isfile(C.TFTP_ROOT, file_path):
+        if os.path.isfile(C.TFTP_ROOT + file_path):
             return TftpData(file_path)
 
