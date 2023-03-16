@@ -2,7 +2,7 @@
 ZTPi is a Zero Touch Provisioning System devieloped for Cisco IOS and IOS-XE devices.
 Cisco's Autoinstall feature is utilized to provide a device in two steps with a initial, template-based configuration. The first template will enable SSH to make the device accessible and assign a unique hostname. After connecting and identifying the device by serial number, it is provided with a unique template-based configuration.
 
-Current Version: 2.1  
+Current Version: 2.2  
 Features:  
   - Python based jinja2 configuration templating  
   - Status notification in Discord or WebEx (Webhook required)  
@@ -15,6 +15,7 @@ Changelog:
 v2.2:    
  - Changed dispatcher.py and tasks.py to use cachefile for ZTP-confg
  - Standardized call of render_file in templating.py  
+ - Changed Webhook for Discord to use requests  
 
 v2.1:    
  - Changed "association" to "template"
@@ -44,8 +45,7 @@ sudo pip install jinja2
 sudo pip install requests  
 sudo pip install rq  
 sudo pip install napalm  
-sudo pip install ruamel.yaml  
-sudo pip install discord-webhook  
+sudo pip install ruamel.yaml    
 sudo pip install rsyslog  
 sudo pip install loguru  
   
