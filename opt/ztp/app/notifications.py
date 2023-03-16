@@ -5,14 +5,14 @@ from app import configuration as C
 
 
 def notify_im(msg):
-    try:
+#    try:
         # Discord
-        url = 'https://discordapp.com/api/webhooks/<URL>'
-        data = {
-            'content': msg,
-            'username': 'ZTPi'
-            }
-        response = requests.post(url,json=data)
+#        url = 'https://discordapp.com/api/webhooks/<URL>'
+#        data = {
+#            'content': msg,
+#            'username': 'ZTPi'
+#            }
+#        response = requests.post(url,json=data)
         # WebEx
 #        url = 'https://webexapis.com/v1/webhooks/incoming/<URL>'
 #        header = {
@@ -22,8 +22,8 @@ def notify_im(msg):
 #            'text': msg
 #            }
 #        response = requests.post(url,headers=header,data=json.dumps(data))
-    except Exception:
-        pass
+#    except Exception:
+#        pass
     # Without IM
     pass
 
