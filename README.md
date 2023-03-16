@@ -13,9 +13,11 @@ Features:
   
 Changelog:  
 v2.2:    
- - Changed dispatcher.py and tasks.py to use cachefile for ZTP-confg
- - Standardized call of render_file in templating.py  
- - Changed Webhook for Discord to use requests  
+ - Changed dispatcher.py and tasks.py to use cachefile  
+ - Standardized input for rendering module in templating.py  
+ - Removed 2nd rendering module  
+ - Changed Discord-Webhook module to requests  
+ - Failure Handling for IM implemented  
 
 v2.1:    
  - Changed "association" to "template"
@@ -52,10 +54,10 @@ sudo pip install loguru
   
 Requirements Datastore:  
 - First line is reserved for keys
-- Must not include Keys used by Jinja (Kwargs)
+- Must not include keys/kwargs used by Jinja
 - Key: devicename  
 - Key: ztp_template  
-- Key: idarray_1 (at least one)  
+- Key: idarray_1 (at least number one)  
   
   
 Requirements Jinja-Templates:  
