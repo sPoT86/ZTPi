@@ -1,23 +1,20 @@
 import json
 import os
 import requests
-from discord_webhook import DiscordWebhook
 from app import configuration as C
 
 
 def notify_im(msg):
     try:
         # Discord
-        url = 'https://discordapp.com/api/webhooks/764566548975190026/V1Mn2Bq9et-WsKrFuJHZ35yy-lpDBrhB3IWtE9vI2pxNSJyxXU0TVGX0uSCzSS2aMiea'
-        headers = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'User-Agent': 'ZTPi'
+        url = 'https://discordapp.com/api/webhooks/<URL>'
+        data = {
+            'content': msg,
+            'username': 'ZTPi'
             }
-        webhook = DiscordWebhook(url, content=json.dumps(msg))
-        response = webhook.execute()
+        response = requests.post(url,json=data)
         # WebEx
-#        url = 'https://webexapis.com/v1/webhooks/incoming/Y2lzY29zcGFyazovL3VybjpURUFNOmV1LWNlbnRyYWwtMV9rL1dFQkhPT0svYmUzMDI3OTMtZmMyNS00MTc5LTg0OGMtMGU3ZTEyOGIwN2Y5'
+#        url = 'https://webexapis.com/v1/webhooks/incoming/<URL>'
 #        header = {
 #            'Content-Type': 'application/json'
 #            }
@@ -29,7 +26,6 @@ def notify_im(msg):
         pass
     # Without IM
     pass
-
 
 
 def notify_syslog(msg):
