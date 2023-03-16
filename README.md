@@ -53,7 +53,16 @@ sudo pip install ruamel.yaml
 sudo pip install rsyslog  
 sudo pip install loguru  
   
+4. tbd:    
   
+  
+5. tbd:    
+  
+    
+6. tbd:    
+ 
+ 
+ 
 Requirements Datastore:  
 - First line is reserved for keys
 - Must not include keys/kwargs used by Jinja
