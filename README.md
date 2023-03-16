@@ -40,6 +40,8 @@ sudo apt-get install redis-server
 sudo apt-get install redis  
 sudo apt install python-pip  
 sudo apt install python3-pip  
+  
+3. Get python modules:  
 sudo pip install --upgrade pip  
 sudo pip install -U setuptools  
 sudo pip install fbtftp  
