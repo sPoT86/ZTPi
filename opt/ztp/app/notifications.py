@@ -23,7 +23,7 @@ def notify_im(msg):
 #            'text': msg
 #            }
 #        response = requests.post(url,headers=header,data=json.dumps(data))
-    # IM error Handling
+    # IM error handling
 #    except requests.exceptions.ConnectionError as e:
 #        notify_syslog(f"IM - network error: {e}")
 #    else:
