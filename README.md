@@ -1,5 +1,5 @@
 # ZTPi
-ZTPi is a Python3 based Zero Touch Provisioning System developed for Cisco IOS devices.
+ZTPi is a Zero Touch Provisioning System developed for Cisco IOS devices.
 Cisco's Autoinstall feature is used to provide a device with an initial, template-based configuration in two steps. The first template is used to enable SSH to make the device accessible and assign a unique host name. After the device is connecting and identified by serial number, it is provided with a unique template-based configuration.
 
 Current Version: 2.2  
@@ -13,6 +13,7 @@ Features:
   
 Changelog:  
 v2.2:    
+ - Python2 is no longer be supported  
  - Changed dispatcher.py and tasks.py to use cachefile  
  - Changed tasks.py and notifications.py to use f-Strings  
  - Standardized input for rendering module in templating.py  
