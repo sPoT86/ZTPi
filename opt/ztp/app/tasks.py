@@ -18,7 +18,6 @@ def ztp_start(host, file):
         if dev:
             msg = f"{host} connection established"
             notify_syslog(msg)
-            notify_im(msg)
         else:
             msg = f"{host} connection failed, giving up"
             notify_syslog(msg)
@@ -27,7 +26,6 @@ def ztp_start(host, file):
         facts = dev.get_facts()
         msg = f"{host} {facts['hostname']}/{facts['model']}/{facts['serial_number']}"
         notify_syslog(msg)
-        notify_im(msg)
         cachefile = str(facts['hostname'] + ".log")
         parameters = parameter_lookup(facts['serial_number'])
         dtime = datetime.datetime.now()
@@ -50,12 +48,12 @@ def ztp_start(host, file):
                 notify_syslog(msg)
                 notify_im(msg)
                 if os.path.isfile(C.CONFIG_DIR + devicename):
-                    with open(os.path.join(C.CONFIG_DIR, devicename), "r") as f:
+                    with open(os.path.join(C.CONFIG_DIR, devicename), "r") as fha:
                         msg = f"{host} existing backup configuration for {devicename} found"
                         notify_syslog(msg)
                         notify_im(msg)
                         logentry = f"{dtime};{host};{facts['hostname']};{facts['model']};{facts['serial_number']};{devicename}"
-                        config = f.read()
+                        config = fha.read()
                         fh.write(logentry)
                         fh.write(";!----BACKUP-CONFIGURATION:\n")
                         fh.write(config)
@@ -111,26 +109,16 @@ def ztp_start(host, file):
             notify_syslog(msg)
             notify_im(msg)
             return
-        with open(os.path.join(C.CACHE_DIR, cachefile), "r") as f:
-            cache = f.readline().split(';')
-            if len(cache) < 6:
-                msg = f"{host} Provisioning failed, device will restart in 5 minutes"
-                notify_syslog(msg)
-                notify_im(msg)
-                return
+        with open(os.path.join(C.CACHE_DIR, cachefile), "r") as fh:
+            cache = fh.readline().split(';')
             devicename = cache[5]
-            if devicename == 'DFAILURE':
-                msg = f"{host} Provisioning failed, device will restart in 5 minutes"
-                notify_syslog(msg)
-                notify_im(msg)
-                return
-            elif devicename == 'TFAILURE':
+            if devicename in ['DFAILURE', 'TFAILURE']:
                 msg = f"{host} Provisioning failed, device will restart in 5 minutes"
                 notify_syslog(msg)
                 notify_im(msg)
                 return
             elif devicename == 'UNKNOWN':
-                msg = f"{host} Serial not assigned in datastore, please check datastore entry and reset device manually"
+                msg = f"{host} Serial not assigned in datastore, please check and reset device manually"
                 notify_syslog(msg)
                 notify_im(msg)
                 return
@@ -142,7 +130,6 @@ def ztp_start(host, file):
         if dev:
             msg = f"{host} connection established"
             notify_syslog(msg)
-            notify_im(msg)
         else:
             msg = f"{host} connection failed, giving up"
             notify_syslog(msg)
