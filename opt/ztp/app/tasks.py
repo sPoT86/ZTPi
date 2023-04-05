@@ -81,7 +81,7 @@ def ztp_start(host, file):
                         elif config == 'T81':
                             logentry = f"{dtime};{host};{facts['hostname']};{facts['model']};{facts['serial_number']};TFAILURE"
                             fh.write(logentry)
-                            msg = f"{host} no Rendering possible, Template {parameters['ztp_template']} has not defined variables"
+                            msg = f"{host} no Rendering possible, Template {parameters['ztp_template']} has undefined variables"
                             notify_syslog(msg)
                             notify_im(msg)
                         elif config == 'T82':
