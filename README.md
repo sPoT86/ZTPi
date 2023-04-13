@@ -21,17 +21,17 @@ Current Version: 2.2
  - Changed Discord-Webhook module to requests  
  - Failure Handling for IM implemented  
 
-### v2.1:    
+#### v2.1:    
  - Changed "association" to "template"
  - Changed "keystore" to "datastore"    
  - Removed notification if config-backup not existing    
     
     
 ## Installation:  
-### 1. Disable Firewall:  
+#### 1. Disable Firewall:  
 sudo ufw disable  
   
-### 2. Get packages:  
+#### 2. Get packages:  
 sudo apt-get update && sudo apt-get dist-upgrade  
 sudo apt-get upgrade  
 sudo apt install -y python-minimal  
@@ -44,7 +44,7 @@ sudo apt-get install redis
 sudo apt install python-pip  
 sudo apt install python3-pip  
   
-### 3. Get python modules:  
+#### 3. Get python modules:  
 sudo pip install --upgrade pip  
 sudo pip install -U setuptools  
 sudo pip install fbtftp  
@@ -55,7 +55,7 @@ sudo pip install napalm
 sudo pip install ruamel.yaml    
 sudo pip install rsyslog  
   
-### 4. tbd:    
+#### 4. tbd:    
   
   
 ### 5. tbd:    
