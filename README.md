@@ -12,7 +12,7 @@ Current Version: 2.2
   - Samba server for SCP download/upload of large files (e.g. Firmware)  
   
 ## Changelog:  
-### v2.2:    
+#### v2.2:    
  - Python2 is no longer be supported  
  - Changed dispatcher.py and tasks.py to use cachefile  
  - Changed tasks.py and notifications.py to use f-Strings  
