@@ -64,14 +64,13 @@ sudo pip install rsyslog
 #### 6. tbd:    
  
  
- 
-### Requirements Datastore:  
+## Requirements: 
+### Datastore:  
 - First line is reserved for keys
 - Must not include keys/kwargs used by Jinja
 - Key: devicename  
 - Key: ztp_template  
 - Key: idarray_1 (at least number one)  
   
-  
-### Requirements Jinja-Templates:  
+### Jinja-Templates:  
 - Must not include semicolons ( ; )  
