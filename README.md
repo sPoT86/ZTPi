@@ -77,15 +77,41 @@ sudo mv /{YOUR PATH}/ZTP-main/ubuntu16_systemfiles/etc_logrotate.d_remotelogs /e
 sudo chmod -R 777 /opt/ztp  
   
 #### 7. Mandatory personal service settings:    
-TFTP service settings (local sudo user) -> /etc/systemd/system/ztp_tftp.service  
-Taskmanager settings (local sudo user) -> /etc/systemd/system/ztp_tasks.service  
+TFTP service settings (local user) -> /etc/systemd/system/ztp_tftp.service  
+Taskmanager settings (local user) -> /etc/systemd/system/ztp_tasks.service  
 DHCP server configuration (listening interface) -> /etc/default/isc-dhcp-server  
 DHCP service configuration (global DHCP Pool settings) -> /etc/dhcp/dhcpd.conf  
-DHCP network settings (Pool settings for relayed networks) -> /etc/dhcp/dhcpd-networks.conf
+DHCP network settings (pool settings for relayed networks) -> /etc/dhcp/dhcpd-networks.conf  
   
-#### 7. Optional personal settings:    
-ZTP global environment settings (f.e. user name, password, domain name) -> /opt/ztp/config.yaml  
+#### 8. Optional personal settings:    
+ZTP global environment settings (staging and logging) -> /opt/ztp/config.yaml  
 IM platform configuration (Discord/Webex) -> /opt/ztp/app/notifications.py  
+Samba server configuration (protocols and paths) -> /etc/samba/smb.conf  
+  
+#### 9. Start services and registertration for startup after boot:  
+sudo systemctl daemon-reload  
+sudo systemctl start smbd  
+sudo systemctl enable smbd  
+sudo systemctl start rsyslog  
+sudo systemctl enable rsyslog  
+sudo systemctl start redis  
+sudo systemctl enable redis  
+sudo systemctl start ztp_tasks  
+sudo systemctl enable ztp_tasks  
+sudo systemctl start ztp_tftp  
+sudo systemctl enable ztp_tftp  
+  
+#### 10. Verify services status:  
+sudo systemctl status ztp_tftp  
+sudo systemctl status ztp_tasks  
+sudo systemctl status isc-dhcp-server  
+
+## Storage locations:
+Jinja template files -> /opt/ztp/templates  
+Fixed configuration files (pass a configuration without jinja templating) -> /opt/ztp/configfiles
+Datastore (devices and keys) -> /opt/ztp/datastores  
+General logfile (ZTP server and service) -> /var/log/ztp/ZTPi.log  
+Remote logfiles (provisioned devices, if used) -> /var/log/ztp/remotelogs/{DEVICE-IP}.log
   
 ## Requirements: 
 ### Datastore:  
