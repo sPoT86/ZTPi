@@ -55,15 +55,38 @@ sudo pip install napalm
 sudo pip install ruamel.yaml    
 sudo pip install rsyslog  
   
-#### 4. tbd:    
+#### 4. Create system folders:    
+sudo mkdir -m777 /etc/systemd/system/ztp  
+sudo mkdir -m777 /var/log/ztp  
+sudo mkdir -m777 /home/vadmin/images  
+sudo mkdir -m777 /var/log/remotelogs  
   
+#### 5. Move files to system folders:    
+sudo mv /{YOUR PATH}/ZTP-main/opt/ztp /opt/  
+sudo mv /{YOUR PATH}/ZTP-main/ubuntu16_systemfiles/etc_default_isc-dhcp-server /etc/default/isc-dhcp-server  
+sudo mv /{YOUR PATH}/ZTP-main/ubuntu16_systemfiles/etc_dhcp_dhcp-networks.conf /etc/dhcp/dhcp-networks.conf  
+sudo mv /{YOUR PATH}/ZTP-main/ubuntu16_systemfiles/etc_dhcp_dhcpd.conf /etc/dhcp/dhcpd.conf  
+sudo mv /{YOUR PATH}/ZTP-main/ubuntu16_systemfiles/etc_logrotate.d_ztplogs /etc/logrotate.d/ztplogs  
+sudo mv /{YOUR PATH}/ZTP-main/ubuntu16_systemfiles/etc_systemd_system_ztp_tasks.service /etc/system.d/system/ztp/ztp_tasks.service  
+sudo mv /{YOUR PATH}/ZTP-main/ubuntu16_systemfiles/etc_systemd_system_ztp_tftp.service /etc/system.d/system/ztp/ztp_tftp.service  
+sudo mv /{YOUR PATH}/ZTP-main/ubuntu16_systemfiles/etc_samba_smb.conf /etc/samba/smb.conf  
+sudo mv /{YOUR PATH}/ZTP-main/ubuntu16_systemfiles/etc_rsyslog.conf /etc/rsyslog.conf  
+sudo mv /{YOUR PATH}/ZTP-main/ubuntu16_systemfiles/etc_logrotate.d_remotelogs /etc/logrotate.d/remotelogs  
   
-#### 5. tbd:    
+#### 6. Fix permissions:    
+sudo chmod -R 777 /opt/ztp  
   
-    
-#### 6. tbd:    
- 
- 
+#### 7. Mandatory personal service settings:    
+TFTP service settings (local sudo user) -> /etc/systemd/system/ztp_tftp.service  
+Taskmanager settings (local sudo user) -> /etc/systemd/system/ztp_tasks.service  
+DHCP server configuration (listening interface) -> /etc/default/isc-dhcp-server  
+DHCP service configuration (global DHCP Pool settings) -> /etc/dhcp/dhcpd.conf  
+DHCP network settings (Pool settings for relayed networks) -> /etc/dhcp/dhcpd-networks.conf
+  
+#### 7. Optional personal settings:    
+ZTP global environment settings (f.e. user name, password, domain name) -> /opt/ztp/config.yaml  
+IM platform configuration (Discord/Webex) -> /opt/ztp/app/notifications.py  
+  
 ## Requirements: 
 ### Datastore:  
 - First line is reserved for keys
