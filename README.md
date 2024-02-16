@@ -106,7 +106,7 @@ sudo systemctl status ztp_tftp
 sudo systemctl status ztp_tasks  
 sudo systemctl status isc-dhcp-server  
 
-## Storage locations:
+## Storage locations:  
 Jinja template files -> /opt/ztp/templates  
 Fixed configuration files (pass a configuration without jinja templating) -> /opt/ztp/configfiles
 Datastore (devices and keys) -> /opt/ztp/datastores  
@@ -116,10 +116,10 @@ Remote logfiles (provisioned devices, if used) -> /var/log/ztp/remotelogs/{DEVIC
 ## Requirements: 
 ### Datastore:  
 - First line is reserved for keys
-- Must not include keys/kwargs used by Jinja
-- Key: devicename  
-- Key: ztp_template  
-- Key: idarray_1 (at least number one)  
+- Must not include default keys/kwargs used by Jinja
+- Key "devicename"  
+- Key "ztp_template"  
+- Key "idarray_1" (at least number one)  
   
 ### Jinja-Templates:  
 - Must not include semicolons ( ; )  
