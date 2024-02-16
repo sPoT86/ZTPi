@@ -107,11 +107,11 @@ sudo systemctl status ztp_tasks
 sudo systemctl status isc-dhcp-server  
 
 ## Storage locations:  
-Jinja template files -> /opt/ztp/templates  
-Fixed configuration files (pass a configuration without jinja templating) -> /opt/ztp/configfiles
-Datastore (devices and keys) -> /opt/ztp/datastores  
-General logfile (ZTP server and service) -> /var/log/ztp/ZTPi.log  
-Remote logfiles (provisioned devices, if used) -> /var/log/ztp/remotelogs/{DEVICE-IP}.log
+- Jinja template files -> /opt/ztp/templates  
+- Fixed configuration files (pass a configuration without jinja templating) -> /opt/ztp/configfiles  
+- Datastore (devices and keys) -> /opt/ztp/datastores  
+- General logfile (ZTP server and service) -> /var/log/ztp/ZTPi.log  
+- Remote logfiles (provisioned devices, if used) -> /var/log/ztp/remotelogs/{DEVICE-IP}.log  
   
 ## Requirements: 
 ### Datastore:  
