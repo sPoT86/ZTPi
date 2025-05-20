@@ -1,0 +1,14 @@
+[Unit]
+Description=ZTP TFTP service
+After=network.target
+
+[Service]
+Type=simple
+User=ztp
+WorkingDirectory=/opt/ztp/
+ExecStart=/bin/bash -c "sudo python3 /opt/ztp/ztp_tftp.py"
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+Alias=ztp_tftp.service

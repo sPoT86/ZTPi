@@ -1,0 +1,8 @@
+/var/log/ztp/ZTPi.log {
+        su root root
+        create 777 root root
+        daily        # taeglich rotieren
+        rotate 7
+        missingok    # Falls das Log nicht existiert ignoriere es
+        notifempty   # Leere Logdateien werden nicht rotiert
+}

@@ -1,0 +1,10 @@
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enp0s5:
+      addresses:
+      - "192.168.255.200/24"
+    enp0s6:
+      addresses:
+      - "192.168.199.250/24"
