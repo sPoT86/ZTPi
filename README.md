@@ -13,7 +13,8 @@ Current Version: 2.3
   
 ## Changelog:  
 #### v2.3:    
- - Systemfiles for Ubuntu 24 and support of Network Manager added  
+ - Systemfiles for Ubuntu 24 and support of Network Manager added
+ - Because of an error in Ubuntu 24 with redis queueing, the redis queueing in broker.py now imports and uses the function instead of referncing by a dotted module-function string.  
  - General optimization of timers and timeouts  
  - Changed handling and logging of connection timeouts (SSH)  
 
