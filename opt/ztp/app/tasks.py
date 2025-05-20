@@ -18,30 +18,36 @@ def ztp_start(host, file):
         if dev:
             msg = f"{host} connection established"
             notify_syslog(msg)
-        else:
-            msg = f"{host} connection failed, giving up"
+            facts = dev.get_facts()
+            msg = f"{host} {facts['hostname']}/{facts['model']}/{facts['serial_number']}"
             notify_syslog(msg)
-            notify_im(msg)
-            return
-        facts = dev.get_facts()
-        msg = f"{host} {facts['hostname']}/{facts['model']}/{facts['serial_number']}"
-        notify_syslog(msg)
-        cachefile = str(facts['hostname'] + ".log")
-        parameters = parameter_lookup(facts['serial_number'])
+            cachefile = str(facts['hostname'] + ".log")
+            parameters = parameter_lookup(facts['serial_number'])
+        else:
+            msg = f"{host} connection failed"
+            notify_syslog(msg)
+            cachefile = str(os.environ.get('TNAME') + ".log")
+            parameters = 'C18'
         dtime = datetime.datetime.now()
         with open(os.path.join(C.CACHE_DIR, cachefile), "w") as fh:
-            if parameters == 'K22':
+            if parameters == 'C18':
+                logentry = f"{dtime};{host};;;;CONFAILURE"
+                fh.write(logentry)
+                msg = f"{host} no lookup possible, SSH connection failed"
+                notify_syslog(msg)
+                notify_im(msg)
+            elif parameters == 'K22':
+                logentry = f"{dtime};{host};{facts['hostname']};{facts['model']};{facts['serial_number']};DFAILURE"
+                fh.write(logentry)
                 msg = f"{host} no Lookup possible, Datastore is missing or not accessible"
                 notify_syslog(msg)
                 notify_im(msg)
-                logentry = f"{dtime};{host};{facts['hostname']};{facts['model']};{facts['serial_number']};DFAILURE"
-                fh.write(logentry)
             elif parameters is None:
+                logentry = f"{dtime};{host};{facts['hostname']};{facts['model']};{facts['serial_number']};UNKNOWN"
+                fh.write(logentry)
                 msg = f"{host} Serial {facts['serial_number']} not assigned in Datastore"
                 notify_syslog(msg)
                 notify_im(msg)
-                logentry = f"{dtime};{host};{facts['hostname']};{facts['model']};{facts['serial_number']};UNKNOWN"
-                fh.write(logentry)
             else:
                 devicename = parameters['devicename']
                 msg = f"{host} Serial {facts['serial_number']} assigned in Datastore -> Devicename: {devicename}"
@@ -49,14 +55,14 @@ def ztp_start(host, file):
                 notify_im(msg)
                 if os.path.isfile(C.CONFIG_DIR + devicename):
                     with open(os.path.join(C.CONFIG_DIR, devicename), "r") as fha:
-                        msg = f"{host} existing backup configuration for {devicename} found"
-                        notify_syslog(msg)
-                        notify_im(msg)
                         logentry = f"{dtime};{host};{facts['hostname']};{facts['model']};{facts['serial_number']};{devicename}"
                         config = fha.read()
                         fh.write(logentry)
                         fh.write(";!----BACKUP-CONFIGURATION:\n")
                         fh.write(config)
+                        msg = f"{host} existing backup configuration for {devicename} found"
+                        notify_syslog(msg)
+                        notify_im(msg)
                 else:
                     if parameters.get('ztp_template') is None or parameters.get('ztp_template') == '':
                         logentry = f"{dtime};{host};{facts['hostname']};{facts['model']};{facts['serial_number']};DFAILURE"
@@ -99,20 +105,19 @@ def ztp_start(host, file):
     elif "ZTP" in file:
         ztpname = file.split('-')[0]
         cachefile = str(ztpname + ".log")
-        timeout = 10
+        timeout = 30
         i = 1
         while i != timeout and os.path.isfile(C.CACHE_DIR + cachefile) is False:
             time.sleep(1)
             i += 1
         if i == timeout:
-            msg = f"{host} Provisioning failed, device will restart in 5 minutes"
+            msg = f"{host} tasks timeout getting cache"
             notify_syslog(msg)
-            notify_im(msg)
             return
         with open(os.path.join(C.CACHE_DIR, cachefile), "r") as fh:
             cache = fh.readline().split(';')
             devicename = cache[5]
-            if devicename in ['DFAILURE', 'TFAILURE']:
+            if devicename in ['CONFAILURE', 'DFAILURE', 'TFAILURE']:
                 msg = f"{host} Provisioning failed, device will restart in 5 minutes"
                 notify_syslog(msg)
                 notify_im(msg)
@@ -131,9 +136,8 @@ def ztp_start(host, file):
             msg = f"{host} connection established"
             notify_syslog(msg)
         else:
-            msg = f"{host} connection failed, giving up"
+            msg = f"{host} connection failed"
             notify_syslog(msg)
-            notify_im(msg)
             return
 
         facts = dev.get_facts()
@@ -142,7 +146,7 @@ def ztp_start(host, file):
             notify_syslog(msg)
             notify_im(msg)
         else:
-            msg = f"{host} something is wrong, the result is not as it should be."
+            msg = f"{host} something is wrong."
             notify_syslog(msg)
             notify_im(msg)
 
