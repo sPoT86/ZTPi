@@ -35,4 +35,3 @@ def generate_tname():
     timehex = hex(timeint)
     tnamenum = timehex[2:12].upper()
     return("ZTP"+tnamenum)
-
