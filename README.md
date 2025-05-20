@@ -2,7 +2,7 @@
 ZTPi is a zero touch provisioning system developed for Cisco IOS devices.  
 Cisco's Autoinstall feature is used to configure a template-based configuration on the device in two steps. In the first step, SSH is activated to make the device accessible. In the second step, the device is identified by its serial number and receives its unique template-based configuration.
 
-Current Version: 2.2  
+Current Version: 2.3  
 ## Features:  
   - Python based jinja2 configuration templating  
   - Status notification in Discord or WebEx (Webhook required)  
@@ -12,6 +12,11 @@ Current Version: 2.2
   - Samba server for SCP download/upload of large files (e.g. Firmware)  
   
 ## Changelog:  
+#### v2.3:    
+ - Systemfiles for Ubuntu 24 and support of Network Manager added  
+ - General optimization of timers and timeouts  
+ - Changed handling and logging of connection timeouts (SSH)  
+
 #### v2.2:    
  - Python2 is no longer be supported  
  - Changed dispatcher.py and tasks.py to use cachefile  
@@ -27,7 +32,7 @@ Current Version: 2.2
  - Removed notification if config-backup not existing    
     
     
-## Installation:  
+## Installation (Ubuntu 16):  
 #### 1. Disable Firewall:  
 sudo ufw disable  
   
