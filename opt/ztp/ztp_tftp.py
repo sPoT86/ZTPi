@@ -8,7 +8,7 @@ import os
 LISTEN_ON = '0.0.0.0'
 SERVER_PORT = 69
 TFTP_ROOT = C.TFTP_ROOT
-RETRIES = 3
+RETRIES = 10
 TIMEOUT = 5
 
 class DynamicHandler(BaseHandler):
