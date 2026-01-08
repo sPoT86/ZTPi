@@ -14,7 +14,7 @@ Current Version: 2.4
 ## Changelog:  
 #### v2.4:    
  - Optimization of the timeouts of SSH connection and cache creation
- - This is the final Version of the current build. I'm currently developing the next Version to support Nexus POAP and Huawei ZTP, besides other extensions and improvements.   
+ - This is the final Version for the current build. I'm working on the next Version to add support for Nexus POAP and Huawei ZTP, as well as some other additional features.   
 
 #### v2.3:    
  - Systemfiles for Ubuntu 24 and support of Network Manager added
